@@ -169,6 +169,18 @@ Public properties provide less complexity in development. However getters/setter
 extensibility and maintainability of applications. Developers can decide which strategy is more appropriate for the
 application they are creating. The ORM is compatible with both schemes of defining properties.
 
+.. highlights::
+
+    If you use underscores in your property names, you must still use camel case in your getter/setter declarations for use with magic methods (e.g. $this->getPropertyName instead of $this->getProperty_name, $this->findByPropertyName instead of $this->findByProperty_name, etc.).  As much of the system expects camel case, an underscores are commonly removed, it is recommended to name your properties in the manner shown throughout the documentation.  You can use a column map (as described above) to ensure proper mapping of your properties their database counterparts.  
+
+.. code-block:: php
+    /* ... */
+    protected $property_name; // underscores in property name not recommended
+    
+    public function getProperty_name(){return $this->property_name;} // this will fail (via magic method)
+    public function getPropertyName(){return $this->property_name;} // this will succeed (via magic method)
+    // recommended: don't use '_' in property names.
+
 Models in Namespaces
 ^^^^^^^^^^^^^^^^^^^^
 Namespaces can be used to avoid class name collision. The mapped table is taken from the class name, in this case 'Robots':
